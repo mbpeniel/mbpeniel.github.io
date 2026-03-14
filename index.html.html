@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Peniel Mberingabo — Customer Success Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a25;
+    --accent: #5b6cff;
+    --accent2: #ff6b6b;
+    --accent3: #00e5c3;
+    --text: #f0f0f5;
+    --muted: #7a7a95;
+    --border: rgba(255,255,255,0.07);
+    --glow: rgba(91,108,255,0.25);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--accent);
+    color: #fff !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 100px;
+    font-size: 0.8rem !important;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-cta:hover { background: #7080ff !important; transform: translateY(-1px); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 6rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+  }
+  .orb1 { width: 600px; height: 600px; background: rgba(91,108,255,0.15); top: -100px; right: -100px; }
+  .orb2 { width: 400px; height: 400px; background: rgba(0,229,195,0.08); bottom: -50px; left: 200px; }
+
+  .hero-content { position: relative; z-index: 2; }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(91,108,255,0.1);
+    border: 1px solid rgba(91,108,255,0.3);
+    border-radius: 100px;
+    padding: 0.4rem 1rem;
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent3);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-name .accent-word { color: var(--accent); }
+  .hero-title {
+    font-size: 1.1rem;
+    color: var(--muted);
+    margin: 1.2rem 0 2rem;
+    font-weight: 300;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-title strong { color: var(--accent3); font-weight: 500; }
+  .hero-desc {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent);
+    color: #fff;
+    padding: 0.85rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    box-shadow: 0 0 30px var(--glow);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px var(--glow); background: #7080ff; }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.85rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    background: rgba(255,255,255,0.03);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: rgba(91,108,255,0.05); }
+
+  .hero-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    animation: fadeUp 0.6s 0.5s ease both;
+  }
+  .hero-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 2.5rem;
+    width: 340px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+  }
+  .hero-card-avatar {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 1.2rem;
+  }
+  .hero-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+  }
+  .hero-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+  .lang-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .badge {
+    background: rgba(91,108,255,0.1);
+    border: 1px solid rgba(91,108,255,0.2);
+    color: var(--accent);
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  .badge.green { background: rgba(0,229,195,0.1); border-color: rgba(0,229,195,0.2); color: var(--accent3); }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 6rem 4rem; position: relative; }
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+  .section-subtitle {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 500px;
+    line-height: 1.7;
+    margin-bottom: 3.5rem;
+  }
+  .divider {
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    border-radius: 2px;
+    margin-bottom: 3.5rem;
+  }
+
+  /* ─── WHAT I OFFER ─── */
+  .offer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .offer-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .offer-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(91,108,255,0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .offer-card:hover { border-color: rgba(91,108,255,0.3); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .offer-card:hover::after { opacity: 1; }
+  .offer-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(91,108,255,0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+  .offer-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.6rem;
+  }
+  .offer-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
+  /* ─── EXPERIENCE ─── */
+  .experience-section { background: var(--surface); }
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    max-width: 800px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent3), transparent);
+  }
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    padding-bottom: 3rem;
+    animation: fadeUp 0.5s ease both;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-dot {
+    position: absolute;
+    left: -2.45rem;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 3px rgba(91,108,255,0.3);
+  }
+  .timeline-date {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent3);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .timeline-role {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+  }
+  .timeline-company {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .timeline-company::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .timeline-bullets { list-style: none; }
+  .timeline-bullets li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding: 0.35rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.6;
+  }
+  .timeline-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.8rem;
+  }
+
+  /* ─── SKILLS ─── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .skills-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+  }
+  .skills-block h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .skill-tag {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 400;
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .skill-tag:hover { border-color: var(--accent); color: var(--accent); background: rgba(91,108,255,0.07); }
+  .skill-tag.accent { background: rgba(91,108,255,0.1); border-color: rgba(91,108,255,0.25); color: var(--accent); }
+  .skill-tag.teal { background: rgba(0,229,195,0.08); border-color: rgba(0,229,195,0.2); color: var(--accent3); }
+
+  /* ─── CERTIFICATIONS ─── */
+  .certs-section { background: var(--surface); }
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+  .cert-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: all 0.25s;
+  }
+  .cert-card:hover { border-color: rgba(91,108,255,0.3); transform: translateY(-2px); }
+  .cert-icon-wrap {
+    width: 40px;
+    height: 40px;
+    background: rgba(91,108,255,0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .cert-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    margin-bottom: 0.2rem;
+  }
+  .cert-card p { font-size: 0.78rem; color: var(--muted); }
+
+  /* ─── CONTACT ─── */
+  .contact-section { text-align: center; }
+  .contact-box {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent3), var(--accent2));
+  }
+  .contact-box .section-title { margin-bottom: 0.5rem; }
+  .contact-box p { color: var(--muted); margin-bottom: 2.5rem; }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--accent3); }
+  .contact-link span { font-size: 1.1rem; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 960px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 5rem 2rem 3rem; }
+    .hero-right { margin-top: 3rem; }
+    section { padding: 4rem 2rem; }
+    .offer-grid { grid-template-columns: 1fr 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .certs-grid { grid-template-columns: 1fr 1fr; }
+    footer { padding: 1.5rem 2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .offer-grid { grid-template-columns: 1fr; }
+    .certs-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">PM<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <div class="hero-bg-orb orb1"></div>
+  <div class="hero-bg-orb orb2"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">Available for new opportunities</div>
+    <h1 class="hero-name">Peniel<br><span class="accent-word">Mberingabo</span></h1>
+    <p class="hero-title">Customer Success & IT Support Specialist · <strong>Based in Nairobi, Kenya</strong></p>
+    <p class="hero-desc">
+      Highly driven specialist with a passion for solving technical problems and delivering exceptional customer experiences. Multilingual, adaptable, and skilled across support, development, and client relations.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">↗ Get in Touch</a>
+      <a href="#experience" class="btn-outline">View Experience</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="hero-card-avatar">PM</div>
+      <h3>Mberingabo Peniel</h3>
+      <p>CS Grad · Customer Success · Software Dev</p>
+      <div class="lang-badges">
+        <span class="badge">🇬🇧 English</span>
+        <span class="badge green">🇫🇷 French B2</span>
+        <span class="badge">🇷🇼 Kinyarwanda</span>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">Certifications</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Languages</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Remote Ready</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT I OFFER -->
+<section id="offer">
+  <div class="section-label">What I bring</div>
+  <h2 class="section-title">Your customers' success<br>is my priority</h2>
+  <div class="divider"></div>
+  <div class="offer-grid">
+    <div class="offer-card reveal">
+      <div class="offer-icon">🎯</div>
+      <h3>Customer Success</h3>
+      <p>End-to-end customer journey management — from onboarding to retention. I build trust through clear communication and timely issue resolution.</p>
+    </div>
+    <div class="offer-card reveal">
+      <div class="offer-icon">🛠️</div>
+      <h3>Technical Support</h3>
+      <p>Troubleshooting hardware, software, and systems with precision. Experienced with helpdesk platforms, remote tools, and user account management.</p>
+    </div>
+    <div class="offer-card reveal">
+      <div class="offer-icon">💬</div>
+      <h3>Multi-channel Communication</h3>
+      <p>Fluent support via phone, email, and live chat — adapting tone and clarity to every channel and customer profile.</p>
+    </div>
+    <div class="offer-card reveal">
+      <div class="offer-icon">🔍</div>
+      <h3>Issue Tracking & Reporting</h3>
+      <p>Systematic ticket management and escalation, ensuring no issue falls through the cracks. Data-driven feedback loops to engineering teams.</p>
+    </div>
+    <div class="offer-card reveal">
+      <div class="offer-icon">💻</div>
+      <h3>Software Development</h3>
+      <p>Full-stack development skills (PHP, Python, JavaScript, SQL) to bridge the gap between customer needs and technical implementation.</p>
+    </div>
+    <div class="offer-card reveal">
+      <div class="offer-icon">🌍</div>
+      <h3>Remote Work Excellence</h3>
+      <p>Proven remote work experience across multiple time zones and countries, using tools like Zoom, TeamViewer, and AnyDesk effectively.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience-section" id="experience">
+  <div class="section-label">Career Journey</div>
+  <h2 class="section-title">Professional Experience</h2>
+  <p class="section-subtitle">3 roles across customer support, IT, and software development — always with a focus on delivering value.</p>
+  <div class="divider"></div>
+
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Dec 2025 — Mar 2026</div>
+      <div class="timeline-role">Software Developer</div>
+      <div class="timeline-company">Impanga Business Ltd · Kigali, Rwanda</div>
+      <ul class="timeline-bullets">
+        <li>Designed, developed, and maintained software applications aligned with business requirements and technical specifications.</li>
+        <li>Tested, debugged, and optimized applications for performance, security, and reliability.</li>
+        <li>Collaborated with cross-functional teams to gather and refine system requirements.</li>
+        <li>Participated in code reviews and contributed to improving coding standards across the team.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">May 2024 — Nov 2025</div>
+      <div class="timeline-role">Remote Customer Support Specialist</div>
+      <div class="timeline-company">Walletec · Johannesburg, South Africa</div>
+      <ul class="timeline-bullets">
+        <li>Delivered exceptional support via phone, email, and live chat for Walletec's fintech products.</li>
+        <li>Monitored and resolved customer tickets in the helpdesk system with consistently timely turnaround.</li>
+        <li>Tracked and escalated recurring system issues to technical teams, contributing to product improvements.</li>
+        <li>Maintained high customer satisfaction through professional follow-up and clear solution explanations.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Mar 2022 — Apr 2024</div>
+      <div class="timeline-role">IT Support Technician</div>
+      <div class="timeline-company">AGRUNI Ltd · Kigali, Rwanda</div>
+      <ul class="timeline-bullets">
+        <li>Performed hardware troubleshooting and repairs on desktop systems, restoring functionality and reducing downtime.</li>
+        <li>Supported the upgrade of the company's digital payment system and internal database with minimal user disruption.</li>
+        <li>Managed user accounts, access requests, and basic system administration tasks.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Capabilities</div>
+  <h2 class="section-title">Skills & Expertise</h2>
+  <div class="divider"></div>
+  <div class="skills-grid">
+    <div class="skills-block reveal">
+      <h3>⚙️ Technical Skills</h3>
+      <div class="skill-tags">
+        <span class="skill-tag accent">PHP</span>
+        <span class="skill-tag accent">JavaScript</span>
+        <span class="skill-tag accent">TypeScript</span>
+        <span class="skill-tag accent">Python</span>
+        <span class="skill-tag accent">Java</span>
+        <span class="skill-tag accent">C / C++ / C#</span>
+        <span class="skill-tag accent">HTML & CSS</span>
+        <span class="skill-tag accent">SQL & NoSQL</span>
+        <span class="skill-tag">TeamViewer</span>
+        <span class="skill-tag">AnyDesk</span>
+        <span class="skill-tag">Zoom</span>
+        <span class="skill-tag">Microsoft Office</span>
+        <span class="skill-tag">Google Workspace</span>
+      </div>
+    </div>
+    <div class="skills-block reveal">
+      <h3>🧠 Soft Skills</h3>
+      <div class="skill-tags">
+        <span class="skill-tag teal">Customer-First Mindset</span>
+        <span class="skill-tag teal">Clear Communication</span>
+        <span class="skill-tag teal">Problem Solving</span>
+        <span class="skill-tag teal">Time Management</span>
+        <span class="skill-tag teal">Analytical Thinking</span>
+        <span class="skill-tag teal">Multitasking</span>
+        <span class="skill-tag teal">Attention to Detail</span>
+        <span class="skill-tag teal">Adaptability</span>
+        <span class="skill-tag teal">Reliability</span>
+      </div>
+    </div>
+    <div class="skills-block reveal">
+      <h3>🔐 Cybersecurity Awareness</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Data Privacy</span>
+        <span class="skill-tag">GDPR Basics</span>
+        <span class="skill-tag">Network Security</span>
+        <span class="skill-tag">CompTIA Security+</span>
+        <span class="skill-tag">Cisco Cybersecurity</span>
+      </div>
+    </div>
+    <div class="skills-block reveal">
+      <h3>🌐 Languages</h3>
+      <div class="skill-tags">
+        <span class="skill-tag teal">English — Very Good</span>
+        <span class="skill-tag accent">French — B2 Certified</span>
+        <span class="skill-tag">Kinyarwanda — Native</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certs-section" id="certifications">
+  <div class="section-label">Credentials</div>
+  <h2 class="section-title">Certifications</h2>
+  <p class="section-subtitle">Industry-recognized credentials spanning IT, cloud, cybersecurity, and language proficiency.</p>
+  <div class="divider"></div>
+  <div class="certs-grid">
+    <div class="cert-card reveal">
+      <div class="cert-icon-wrap">☁️</div>
+      <div>
+        <h4>MS-900 & AZ-900</h4>
+        <p>Microsoft 365 & Azure Fundamentals</p>
+      </div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon-wrap">🔒</div>
+      <div>
+        <h4>CompTIA A+, Network+, Security+</h4>
+        <p>Hardware, Networking & Security</p>
+      </div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon-wrap">🛡️</div>
+      <div>
+        <h4>Intro to Cybersecurity</h4>
+        <p>Cisco Networking Academy</p>
+      </div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon-wrap">🎓</div>
+      <div>
+        <h4>Google IT Support Professional</h4>
+        <p>Google / Coursera Certificate</p>
+      </div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon-wrap">🇫🇷</div>
+      <div>
+        <h4>DELF B2</h4>
+        <p>French Language Certificate</p>
+      </div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-icon-wrap">🇬🇧</div>
+      <div>
+        <h4>Duolingo English Test (DET)</h4>
+        <p>English Proficiency Certificate</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-box reveal">
+    <div class="section-label" style="text-align:center">Let's connect</div>
+    <h2 class="section-title">Ready to work together?</h2>
+    <p>Whether you're looking for a dedicated Customer Success Manager, IT Support Specialist, or multilingual support professional — I'd love to hear from you.</p>
+    <a href="mailto:penielmberingabo@gmail.com" class="btn-primary" style="display:inline-flex; margin: 0 auto;">
+      ✉️ Send Me an Email
+    </a>
+    <div class="contact-links">
+      <a href="mailto:penielmberingabo@gmail.com" class="contact-link">
+        <span>📧</span> penielmberingabo@gmail.com
+      </a>
+      <a href="tel:+254707152989" class="contact-link">
+        <span>📞</span> +254 707 152 989
+      </a>
+      <a href="#" class="contact-link">
+        <span>📍</span> Nairobi, Kenya
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Mberingabo Peniel. All rights reserved.</span>
+  <span>Customer Success · IT Support · Software Dev</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
